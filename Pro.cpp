@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 /********************** Class User**************************************
@@ -50,6 +50,7 @@ class Product
 	string brand_name;
 	int eligible_for_cod;
 	string seller_name;
+	int quantity;
 	public:
 		Product()
 		{
@@ -78,6 +79,36 @@ class Product
 		int return_eligible_for_cod()
 		{
 			return eligible_for_cod;
+		}
+		int return_quantity()
+		{
+			return quantity;
+		}
+		void get_product_details()
+		{
+			cout<<"Enter Product Id:\n";
+			cin>>product_id;
+			cout<<"Enter Price of the product:\n";
+			cin>>price;
+			cout<<"Enter the quantity required of the desired product:\n";
+			cin>>quantity;
+			cout<<"Enter Brand Name:\n";
+			cin>>brand_name;
+			cout<<"Enter Seller's Name:\n";
+			cin>>seller_name;
+			cout<<"Should the product be eligible for cash on delivery??(0 (for no)/ 1(for yes)):\n";
+			cin>>eligible_for_cod;
+		}
+		void show_product_details()
+		{
+			cout<<"Product Id:"<<product_id<<endl;
+			cout<<"Price of the product:"<<price<<endl;
+			cout<<"Quantity Demanded:"<<quantity<<endl;
+			cout<<"Brand Name:"<<brand_name<<endl;
+			cout<<"Seller's Name:"<<seller_name<<endl;
+			if(eligible_for_cod==0)
+			cout<<"Product demanded is not eligible for cod"<<endl;
+			else cout<<"Product is eligible for cod"<<endl;
 		}
 virtual	float return_discount_price(int discount_percent)
 		{
@@ -113,6 +144,13 @@ class Electronic_Products : public Product
 		float return_screen_size()
 		{
 			return screen_size;
+		}
+		void get_electronic_details()
+		{
+			get_product_details();
+			cout<<"Enter the type of Operating system:";
+			cin>>operating_system;
+			cout<<"Enter memory size of the "
 		}
 };
 
@@ -181,7 +219,10 @@ class Home_DecorProducts: public Product
 		}
 };
 
-
+/*******************Class Mobile***********************
+->It publically inherits class Electronic_Products
+->Contains various attributes and behaviours
+*******************************************************/
 class Mobile: public Electronic_Products
 {
 	string Performance;
@@ -220,8 +261,10 @@ class Mobile: public Electronic_Products
 		}
 };
 
-
-
+/*******************Class Laptop***********************
+->It publically inherits class Electronic_Products
+->Contains various attributes and behaviours
+*******************************************************/
 class Laptop: public Electronic_Products
 {
 	string CPU_Type;
@@ -254,7 +297,10 @@ class Laptop: public Electronic_Products
 		}
 };
 
-
+/*******************Class Male_Clothing***********************
+->It publically inherits class Clothing_Products
+->Contains various attributes and behaviours
+*******************************************************/
 
 class Male_Clothing: public Clothing_Products
 {
@@ -281,7 +327,10 @@ class Male_Clothing: public Clothing_Products
 		}
 };
 
-
+/*******************Class Female_Clothing***********************
+->It publically inherits class Clothing_Products
+->Contains various attributes and behaviours
+*******************************************************/
 
 class Female_CLothing: public Clothing_Products
 {
@@ -321,7 +370,10 @@ class Female_CLothing: public Clothing_Products
 		}
 };
 
-
+/*******************Class Kids_Clothing***********************
+->It publically inherits class Clothing_Products
+->Contains various attributes and behaviours
+*******************************************************/
 
 class Kids_Clothing: public Clothing_Products
 {
@@ -361,10 +413,10 @@ class Kids_Clothing: public Clothing_Products
 		}
 };
 
-
-
-
-
+/**************Class Kitchen_Furnishings***************
+->It publically inherits class Home_DecorProducts
+->Contains various attributes and behaviours
+*******************************************************/
 class Kitchen_Furnishings: public Home_DecorProducts
 {
  	string Crockery_Type;
@@ -399,7 +451,10 @@ class Kitchen_Furnishings: public Home_DecorProducts
 		
 };
 
-
+/*******************Class Gardening_Products***********************
+->It publically inherits class Home_DecorProducts
+->Contains various attributes and behaviours
+*******************************************************/
 
 
 class Gardening_Products: public Home_DecorProducts
@@ -444,6 +499,9 @@ class Gardening_Products: public Home_DecorProducts
 
 int main(void)
 {
+	
+
+	
 	
 	return 0;
 }
