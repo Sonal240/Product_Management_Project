@@ -148,9 +148,19 @@ class Electronic_Products : public Product
 		void get_electronic_details()
 		{
 			get_product_details();
-			cout<<"Enter the type of Operating system:";
+			cout<<"Enter the type of Operating system:\n";
 			cin>>operating_system;
-			cout<<"Enter memory size of the "
+			cout<<"Enter memory size of the device:\n";
+			cin>>memory_size;
+			cout<<"Enter screen size of the device:\n";
+			cin>>screen_size;
+		}
+		void show_electronic_details()
+		{
+			show_product_details();
+			cout<<"Operating system:"<<endl;
+			cout<<"Memory size:"<<endl;
+			cout<<"Screen size:"<<endl;
 		}
 };
 
@@ -185,6 +195,26 @@ class Clothing_Products: public Product
 		{
 			return size;
 		}
+		void get_clothingdetails()
+		{
+			get_product_details();
+			cout<<"Enter material type:\n";
+			cin>>Material;
+			cout<<"Enter colour of the product:\n";
+			cin>>colour;
+			cout<<"Enter size of the product"<<endl;
+			cout<<"For women:"<<"xs-30|s-32|m-34|l-36|xl-40|xxl-42"<<endl;
+			cout<<"For men:"<<""<<endl;
+			cout<<"In case of unstiched material: 0";
+			cin>>size;
+		}
+		void show_clothingdetails()
+		{
+			show_product_details();
+			cout<<"Material type:"<<Material<<endl;
+			cout<<"Colour:"<<colour<<endl;
+			cout<<"Size:"<<size<<endl;
+		}
 };
 
 
@@ -216,6 +246,11 @@ class Home_DecorProducts: public Product
 		string return_rug_type()
 		{
 			return rug_type;
+		}
+		void get_homedecor_details()
+		{
+			get_product_details();
+			cout<<"Enter Apron type"
 		}
 };
 
