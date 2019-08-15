@@ -96,7 +96,7 @@ class Product
 			cin>>brand_name;
 			cout<<"Enter Seller's Name:\n";
 			cin>>seller_name;
-			cout<<"Should the product be eligible for cash on delivery??(0 (for no)/ 1(for yes)):\n";
+			cout<<"Should the product be eligible for cash on delivery?(0 (for no)/ 1(for yes)):\n";
 			cin>>eligible_for_cod;
 		}
 		void show_product_details()
@@ -121,7 +121,7 @@ virtual	float return_discount_price(int discount_percent)
 ->This class publically inherits the Product class 
 ->It is further inherited publically by class Mobile and class Computer
 ***********************************************************************/
-class Electronic_Products : public Product
+class Electronic_Products :virtual public Product
 {
 	string operating_system;
 	float memory_size;
@@ -171,7 +171,7 @@ class Electronic_Products : public Product
 ->It is further inherited publically by class Male_Clothing, class Female
 _Clothing and Kids_Clothing
 ***********************************************************************/
-class Clothing_Products: public Product
+class Clothing_Products:virtual public Product
 {
 	string Material;
 	int size;
@@ -224,7 +224,7 @@ class Clothing_Products: public Product
 ->It is further inherited publically by class Kitchen_Furnishings and Class
 Gardening_Products
 ***********************************************************************/
-class Home_DecorProducts: public Product
+class Home_DecorProducts:virtual public Product
 {
 	string apron_type;
 	string glove_type;
@@ -250,7 +250,22 @@ class Home_DecorProducts: public Product
 		void get_homedecor_details()
 		{
 			get_product_details();
-			cout<<"Enter Apron type"
+			cout<<"Enter Apron type:\n";
+			cin>>apron_type;
+			cout<<"Enter Glove type:\n";
+			cin>>glove_type;
+			cout<<"Enter the type of lights preferred:\n";
+			cin>>light_type;
+			cout<<"Enter rug type:\n";
+			cin>>rug_type;
+		}
+		void show_homedecor_details()
+		{
+			show_product_details();
+			cout<<"Apron:"<<apron_type<<endl;
+			cout<<"Gloves:"<<glove_type<<endl;
+			cout<<"Lights:"<<light_type<<endl;
+			cout<<"Rug:"<<rug_type<<endl;
 		}
 };
 
@@ -294,6 +309,32 @@ class Mobile: public Electronic_Products
 		{
 			return Touch_avail;
 		}
+		void get_data()
+		{
+			get_electronic_details();
+			cout<<"Enter Performance:\n";
+			cin>>Performance;
+			cout<<"Enter specifications for front camera (MP mega pixels):\n";
+			cin>>FrontCamera;
+			cout<<"Enter specifications for rear camera (MP mega pixels):\n";
+			cin>>RearCamera;
+			cout<<"Touch required (Enter 0 for no and 1 for yes):\n";
+			cin>>Touch_avail;
+			cout<<"Enter other Security and connections preferred:\n";
+			cin>>Security_Connectivity;
+		}
+		void show_data()
+		{
+			show_electronic_details();
+			cout<<"Performance:"<<Performance<<endl;
+			cout<<"Front Camera(MP):"<<FrontCamera<<endl;
+			cout<<"Rear Camera(MP):"<<RearCamera<<endl;
+			if(Touch_avail==0)
+			cout<<"Youch is not available for this device"<<endl;
+			else cout<<"Touch is available for the device"<<endl;
+			cout<<"Security and Connectivity:"<<Security_Connectivity<<endl;		
+		}
+		
 };
 
 /*******************Class Laptop***********************
@@ -330,6 +371,26 @@ class Laptop: public Electronic_Products
 		{
 			return Usage;
 		}
+		void get_data()
+		{
+			get_electronic_details();
+			cout<<"Enter CPU type:\n";
+			cin>>CPU_Type;
+			cout<<"Enter the weight preferred:\n";
+			cin>>weight;
+			cout<<"Enter Laptop type:\n";
+			cin>>Laptop_Type;
+			cout<<"Enter Usage:\n";
+			cin>>Usage;
+		}
+		void show_data()
+		{
+			show_electronic_details();
+			cout<<"CPU Type:"<<CPU_Type<<endl;
+			cout<<"Weight:"<<weight<<endl;
+			cout<<"Laptop Type:"<<Laptop_Type<<endl;
+			cout<<"Usage:"<<Usage<<endl;		
+		}
 };
 
 /*******************Class Male_Clothing***********************
@@ -360,6 +421,27 @@ class Male_Clothing: public Clothing_Products
 		{
 			return Suit_Blazer_Type;
 		}
+		void get_data()
+		{
+			get_clothingdetails();
+			cout<<"Enter NIL if you don't want to purchase that product"<<endl;
+			cout<<"Enter T-shirt type:\n";
+			cin>>Tshirt_Type;
+			cout<<"Enter Shirt type:\n";
+			cin>>Shirt_Type;
+			cout<<"Enter Jeans Type:\n";
+			cin>>Jeans_Type;
+			cout<<"Enter Suit/Blazer Type:\n";
+			cin>>Suit_Blazer_Type;
+		}
+		void show_data()
+		{
+			show_clothingdetails();
+			cout<<"T-shirt:"<<Tshirt_Type<<endl;
+			cout<<"Shirt:"<<Shirt_Type<<endl;
+			cout<<"Jeans:"<<Jeans_Type<<endl;
+			cout<<"Suit/Blazer:"<<Suit_Blazer_Type<<endl;		
+		}
 };
 
 /*******************Class Female_Clothing***********************
@@ -373,7 +455,6 @@ class Female_CLothing: public Clothing_Products
 	string Skirt_Style;
 	string Top_Style;
 	string Saree_Style;
-	string Unsitched_Material;
 	public:
 		Female_Clothing()
 		{
@@ -381,7 +462,6 @@ class Female_CLothing: public Clothing_Products
 			Skirt_Style="NULL";
 			Top_Style="NULL";
 			Saree_Style="NULL";
-			Unsitched_Material="NULL";
 		}
 		string return_Jumpsuit_Style()
 		{
@@ -399,9 +479,27 @@ class Female_CLothing: public Clothing_Products
 		{
 			return Saree_Style;
 		}
-		string return_Unsitched_Material()
+	
+		void get_data()
 		{
-			return Unsitched_Material;
+			get_clothingdetails();
+			cout<<"Enter NIL if you don't want to purchase that product"<<endl;
+			cout<<"Enter Jumpsuit Style:\n";
+			cin>>Jumpsuit_Style;
+			cout<<"Enter Skirt Style:\n";
+			cin>>Skirt_Style;
+			cout<<"Enter Top Style:\n";
+			cin>>Top_Style;
+			cout<<"Enter Saree Style:\n";
+			cin>>Saree_Style;
+		}
+		void show_data()
+		{
+			show_clothingdetails();
+			cout<<"Jumpsuit:"<<Jumpsuit_Style<<endl;
+			cout<<"Skirt:"<<Skirt_Style<<endl;
+			cout<<"Top:"<<Top_Style<<endl;
+			cout<<"Saree:"<<Saree_Style<<endl;			
 		}
 };
 
@@ -446,6 +544,27 @@ class Kids_Clothing: public Clothing_Products
 		{
 			return ShirtJean_Style;
 		}
+		void get_data()
+		{
+			get_clothingdetails();
+			cout<<"Enter NIL if you don't want to purchase the product"<<endl;
+			cout<<"Enter PlazzoSet style:\n";
+			cin>>PlazzoSet_Style;
+			cout<<"Enter Anarkali Suit type:\n";
+			cin>>AnarkaliSuit_Style;
+			cout<<"Enter Dhoti Kurta Type:\n";
+			cin>>DhotiKurta_Style;
+			cout<<"Enter Shirt Jean combo Type:\n";
+			cin>>ShirtJean_Style;
+		}
+		void show_data()
+		{
+			show_clothingdetails();
+			cout<<"Plazzo-Set:"<<PlazzoSet_Style<<endl;
+			cout<<"Anarkali Suit:"<<AnarkaliSuit_Style<<endl;
+			cout<<"Dhoti Kurta:"<<DhotiKurta_Style<<endl;
+			cout<<"Shirt Jean Combo:"<<ShirtJean_Style<<endl;				
+		}
 };
 
 /**************Class Kitchen_Furnishings***************
@@ -482,11 +601,31 @@ class Kitchen_Furnishings: public Home_DecorProducts
 		{
 			return Copperware_Type;
 		}
-
+		void get_data()
+		{
+		get_homedecor_details();
+			cout<<"Enter NIL if you don't want to purchase the product"<<endl;
+			cout<<"Enter Crockery Type:\n";
+			cin>>Crockery_Type;
+			cout<<"Enter Cookware Set Type:\n";
+			cin>>Cookware_Set_Type;
+			cout<<"Enter Casseroles Type:\n";
+			cin>>Casseroles_Type;
+			cout<<"Enter Copperware Type:\n";
+			cin>>Copperware_Type;
+		}
+		void show_data()
+		{
+			show_homedecor_details();
+			cout<<"Crockery:"<<Crockery_Type<<endl;
+			cout<<"Cookware Set:"<<Cookware_Set_Type<<endl;
+			cout<<"Casseroles:"<<Casseroles_Type<<endl;
+			cout<<"Copperware:"<<Copperware_Type<<endl;				
+		}
 		
 };
 
-/*******************Class Gardening_Products***********************
+/*******************Class Gardening_Products*************
 ->It publically inherits class Home_DecorProducts
 ->Contains various attributes and behaviours
 *******************************************************/
@@ -528,13 +667,43 @@ class Gardening_Products: public Home_DecorProducts
 		{
 			return Solar_Lights_Type;
 		}
+		void get_data()
+		{
+			get_homedecor_details();
+			cout<<"Enter NIL if you don't want to purchase the product"<<endl;
+			cout<<"Enter Seed Type:\n";
+			cin>>Seed_Type;
+			cout<<"Enter Indoor Plants Type:\n";
+			cin>>Indoor_Plants_Type;
+			cout<<"Enter Wind Chimes Type:\n";
+			cin>>Wind_Chimes_Type;
+			cout<<"Enter Barbeque Grills Type:\n";
+			cin>>BarbequeGrills_Type;
+			cout<<"Enter Solar Lights Type:\n";
+			cin>>Solar_Lights_Type;
+		}
+		void show_data()
+		{
+			show_homedecor_details();
+			cout<<"Seed:"<<Seed_Type<<endl;
+			cout<<"Indoor Plants:"<<Indoor_Plants_Type<<endl;
+			cout<<"Wind Chimes:"<<Wind_Chimes_Type<<endl;
+			cout<<"Barbeque Grills:"<<BarbequeGrills_Type<<endl;
+			cout<<"Solar Lights:"<<Solar_Lights_Type<<endl;			
+		}
 		
 };
 
 
 int main(void)
 {
-	
+	stack<Gardening_Products> gp;
+	stack<Kitchen_Furnishings> kf;
+	stack<Male_Clothing>m;
+	stack<Female_CLothing> f;
+	stack<Kids_Clothing> k;
+	stack<Laptop> l;
+	stack<Mobile> mo;
 
 	
 	
