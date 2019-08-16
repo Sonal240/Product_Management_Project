@@ -696,7 +696,7 @@ class Gardening_Products: public Home_DecorProducts
 
 
 int main(void)
-{
+{	system("COLOR 2");
 	stack<Gardening_Products> gp;
 	stack<Kitchen_Furnishings> kf;
 	stack<Male_Clothing>m;
@@ -704,8 +704,24 @@ int main(void)
 	stack<Kids_Clothing> k;
 	stack<Laptop> l;
 	stack<Mobile> mo;
-
-	
+	queue<User> u;
+	cout<<"\t\t\t\t****************************************************************************************************************"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t************************************************ALL IN ONE STORE***********************************************"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t\t\t\tWelcome to All in One Store!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t\t\t\tList of Products:"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t\t\t\t\tElectronics:"<<endl;
+	cout<<"\t\t\t\t\t\t\t\t\tMobile and Laptop"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t\t\t\t\tClothing:"<<endl;
+	cout<<"\t\t\t\t\t\t\t\t\tMen, Women and Kids Section"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\t\t\t\t\tHome Decor:"<<endl; 
+	cout<<"\t\t\t\t\t\t\t\t\tGardening items and Kitchen Essentials"<<endl;
+	cout<<endl;
 	
 	return 0;
 }
