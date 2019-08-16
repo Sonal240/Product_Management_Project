@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<windows.h>
 using namespace std;
 
 /********************** Class User**************************************
@@ -696,7 +697,7 @@ class Gardening_Products: public Home_DecorProducts
 
 
 int main(void)
-{	system("COLOR 2");
+{	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	stack<Gardening_Products> gp;
 	stack<Kitchen_Furnishings> kf;
 	stack<Male_Clothing>m;
@@ -705,6 +706,8 @@ int main(void)
 	stack<Laptop> l;
 	stack<Mobile> mo;
 	queue<User> u;
+//	system("COLOR 3B");
+SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
 	cout<<"\t\t\t\t****************************************************************************************************************"<<endl;
 	cout<<endl;
 	cout<<"\t\t\t\t************************************************ALL IN ONE STORE***********************************************"<<endl;
@@ -722,6 +725,16 @@ int main(void)
 	cout<<"\t\t\t\t\t\t\t\tHome Decor:"<<endl; 
 	cout<<"\t\t\t\t\t\t\t\t\tGardening items and Kitchen Essentials"<<endl;
 	cout<<endl;
+
+	//std::cout << "Default console color" << std::endl;
+
+//	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
+
 	
+	
+	
+	
+	
+	//SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN));//default background
 	return 0;
 }
