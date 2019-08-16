@@ -700,8 +700,8 @@ int main(void)
 {	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFOEX info;
 	GetConsoleScreenBufferInfoEx(hConsole,&info);
-	info.ColorTable[3]=RGB(135,206,235);
-	info.ColorTable[2]=RGB(245,67,200);
+//	info.ColorTable[3]=RGB(135,206,235);
+//	info.ColorTable[2]=RGB(25,0,120);
 	stack<Gardening_Products> gp;
 	stack<Kitchen_Furnishings> kf;
 	stack<Male_Clothing>m;
@@ -710,26 +710,36 @@ int main(void)
 	stack<Laptop> l;
 	stack<Mobile> mo;
 	queue<User> u;
-//	system("COLOR 3B");
-//SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
-SetConsoleTextAttribute(hConsole,3);
-	cout<<"****************************************************************************************************************"<<endl;
+SetConsoleTextAttribute(hConsole,9);
+	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
-SetConsoleTextAttribute(hConsole,2);
-	cout<<"************************************************TINY SHOPIFY***********************************************"<<endl;
+	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY));
+	cout<<"\t\t\t"<<" "<<" *********"<<" "<<"*      *"<<" "<<"*********"<<" "<<"*********"<<" "<<"********"<<" "<<"*******"<<" "<<"*      *"<<endl;
+	cout<<"\t\t\t"<<" "<<" *        "<<" "<<"*      *"<<" "<<"*       *"<<" "<<"*       *"<<" "<<"    *   "<<" "<<"*      "<<" "<<" *    * "<<endl;
+	cout<<"\t\t\t"<<" "<<" *********"<<" "<<"********"<<" "<<"*       *"<<" "<<"*********"<<" "<<"    *   "<<" "<<"*******"<<" "<<"    *   "<<endl;
+	cout<<"\t\t\t"<<" "<<"         *"<<" "<<"*      *"<<" "<<"*       *"<<" "<<"*        "<<" "<<"    *   "<<" "<<"*      "<<" "<<"    *   "<<endl;
+	cout<<"\t\t\t"<<" "<<" *********"<<" "<<"*      *"<<" "<<"*********"<<" "<<"*        "<<" "<<"********"<<" "<<"*      "<<" "<<"    *   "<<endl;
 	cout<<endl;
-	cout<<"\t\tWelcome to Tiny Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+SetConsoleTextAttribute(hConsole,9);
+	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
-	cout<<"\tList of Products:"<<endl;
+SetConsoleTextAttribute(hConsole,3);	
+	cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
 	cout<<endl;
-	cout<<"\tElectronics:"<<endl;
-	cout<<"\t\ttMobile and Laptop"<<endl;
+	cout<<"\t\t\t\tList of Products:"<<endl;
 	cout<<endl;
-	cout<<"\tClothing:"<<endl;
-	cout<<"\t\tMen, Women and Kids Section"<<endl;
+	cout<<"\t\t\t\tElectronics:"<<endl;
+	cout<<"\t\t\t\t->Mobile"<<endl;
+	cout<<"\t\t\t\t->Laptop"<<endl;
 	cout<<endl;
-	cout<<"\tHome Decor:"<<endl; 
-	cout<<"\t\tGardening items and Kitchen Essentials"<<endl;
+	cout<<"\t\t\t\tClothing:"<<endl;
+	cout<<"\t\t\t\t->Men"<<endl;
+	cout<<"\t\t\t\t->Women"<<endl;
+	cout<<"\t\t\t\t->Kids"<<endl;
+	cout<<endl;
+	cout<<"\t\t\t\tHome Decor:"<<endl; 
+	cout<<"\t\t\t\t->Gardening items"<<endl;
+	cout<<"\t\t\t\t->Kitchen Essentials"<<endl;
 	cout<<endl;
 	CONSOLE_FONT_INFOEX cfi;
 cfi.cbSize = sizeof(cfi);
@@ -738,10 +748,9 @@ cfi.dwFontSize.X = 10;                   // Width of each character in the font
 cfi.dwFontSize.Y = 24;                  // Height
 cfi.FontFamily = FF_DONTCARE;
 cfi.FontWeight = FW_NORMAL;
-wcscpy(cfi.FaceName, L"Curlz MT"); // Choose your font
+wcscpy(cfi.FaceName, L"CurlzMT"); // Choose your font
 SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
-cout << "Font: Consolas, Size: 24\n";
 
 	//std::cout << "Default console color" << std::endl;
 
@@ -752,6 +761,6 @@ cout << "Font: Consolas, Size: 24\n";
 	
 	
 	
-	//SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN));//default background
+	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN));//default background
 	return 0;
 }
