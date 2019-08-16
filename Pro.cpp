@@ -698,6 +698,10 @@ class Gardening_Products: public Home_DecorProducts
 
 int main(void)
 {	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	GetConsoleScreenBufferInfoEx(hConsole,&info);
+	info.ColorTable[3]=RGB(135,206,235);
+	info.ColorTable[2]=RGB(245,67,200);
 	stack<Gardening_Products> gp;
 	stack<Kitchen_Furnishings> kf;
 	stack<Male_Clothing>m;
@@ -707,24 +711,37 @@ int main(void)
 	stack<Mobile> mo;
 	queue<User> u;
 //	system("COLOR 3B");
-SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
-	cout<<"\t\t\t\t****************************************************************************************************************"<<endl;
+//SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
+SetConsoleTextAttribute(hConsole,3);
+	cout<<"****************************************************************************************************************"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t************************************************ALL IN ONE STORE***********************************************"<<endl;
+SetConsoleTextAttribute(hConsole,2);
+	cout<<"************************************************TINY SHOPIFY***********************************************"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t\t\t\tWelcome to All in One Store!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+	cout<<"\t\tWelcome to Tiny Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t\t\t\tList of Products:"<<endl;
+	cout<<"\tList of Products:"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t\t\t\t\tElectronics:"<<endl;
-	cout<<"\t\t\t\t\t\t\t\t\tMobile and Laptop"<<endl;
+	cout<<"\tElectronics:"<<endl;
+	cout<<"\t\ttMobile and Laptop"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t\t\t\t\tClothing:"<<endl;
-	cout<<"\t\t\t\t\t\t\t\t\tMen, Women and Kids Section"<<endl;
+	cout<<"\tClothing:"<<endl;
+	cout<<"\t\tMen, Women and Kids Section"<<endl;
 	cout<<endl;
-	cout<<"\t\t\t\t\t\t\t\tHome Decor:"<<endl; 
-	cout<<"\t\t\t\t\t\t\t\t\tGardening items and Kitchen Essentials"<<endl;
+	cout<<"\tHome Decor:"<<endl; 
+	cout<<"\t\tGardening items and Kitchen Essentials"<<endl;
 	cout<<endl;
+	CONSOLE_FONT_INFOEX cfi;
+cfi.cbSize = sizeof(cfi);
+cfi.nFont = 0;
+cfi.dwFontSize.X = 10;                   // Width of each character in the font
+cfi.dwFontSize.Y = 24;                  // Height
+cfi.FontFamily = FF_DONTCARE;
+cfi.FontWeight = FW_NORMAL;
+wcscpy(cfi.FaceName, L"Curlz MT"); // Choose your font
+SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+
+cout << "Font: Consolas, Size: 24\n";
 
 	//std::cout << "Default console color" << std::endl;
 
