@@ -1,6 +1,17 @@
 #include<bits/stdc++.h>
 #include<windows.h>
+#include<conio.h>
+#include<cstdlib>
 using namespace std;
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); // used for goto
+COORD CursorPosition; // used for goto
+void gotoXY(int x, int y) 
+{ 
+	CursorPosition.X = x; 
+	CursorPosition.Y = y; 
+	SetConsoleCursorPosition(console,CursorPosition); 
+}
+
 
 /********************** Class User**************************************
 -> Contains details about User/ Buyer of a particular product
@@ -394,7 +405,7 @@ class Laptop: public Electronic_Products
 		}
 };
 
-/*******************Class Male_Clothing***********************
+/*******************Class Male_Clothing*****************
 ->It publically inherits class Clothing_Products
 ->Contains various attributes and behaviours
 *******************************************************/
@@ -445,7 +456,7 @@ class Male_Clothing: public Clothing_Products
 		}
 };
 
-/*******************Class Female_Clothing***********************
+/*******************Class Female_Clothing***************
 ->It publically inherits class Clothing_Products
 ->Contains various attributes and behaviours
 *******************************************************/
@@ -504,7 +515,7 @@ class Female_CLothing: public Clothing_Products
 		}
 };
 
-/*******************Class Kids_Clothing***********************
+/*******************Class Kids_Clothing******************
 ->It publically inherits class Clothing_Products
 ->Contains various attributes and behaviours
 *******************************************************/
@@ -700,6 +711,15 @@ int main(void)
 {	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFOEX info;
 	GetConsoleScreenBufferInfoEx(hConsole,&info);
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.X = 10;                   // Width of each character in the font
+	cfi.dwFontSize.Y = 24;                  // Height
+	cfi.FontFamily = FF_DONTCARE;
+	cfi.FontWeight = FW_NORMAL;
+	wcscpy(cfi.FaceName, L"Gigi"); // Choose your font
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 //	info.ColorTable[3]=RGB(135,206,235);
 //	info.ColorTable[2]=RGB(25,0,120);
 	stack<Gardening_Products> gp;
@@ -713,7 +733,7 @@ int main(void)
 SetConsoleTextAttribute(hConsole,9);
 	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
-	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY));
+	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE| FOREGROUND_INTENSITY));
 	cout<<"\t\t\t"<<" "<<" *********"<<" "<<"*      *"<<" "<<"*********"<<" "<<"*********"<<" "<<"********"<<" "<<"*******"<<" "<<"*      *"<<endl;
 	cout<<"\t\t\t"<<" "<<" *        "<<" "<<"*      *"<<" "<<"*       *"<<" "<<"*       *"<<" "<<"    *   "<<" "<<"*      "<<" "<<" *    * "<<endl;
 	cout<<"\t\t\t"<<" "<<" *********"<<" "<<"********"<<" "<<"*       *"<<" "<<"*********"<<" "<<"    *   "<<" "<<"*******"<<" "<<"    *   "<<endl;
@@ -724,7 +744,7 @@ SetConsoleTextAttribute(hConsole,9);
 	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
 SetConsoleTextAttribute(hConsole,3);	
-	cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+/*	cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
 	cout<<endl;
 	cout<<"\t\t\t\tList of Products:"<<endl;
 	cout<<endl;
@@ -741,25 +761,107 @@ SetConsoleTextAttribute(hConsole,3);
 	cout<<"\t\t\t\t->Gardening items"<<endl;
 	cout<<"\t\t\t\t->Kitchen Essentials"<<endl;
 	cout<<endl;
-	CONSOLE_FONT_INFOEX cfi;
-cfi.cbSize = sizeof(cfi);
-cfi.nFont = 0;
-cfi.dwFontSize.X = 10;                   // Width of each character in the font
-cfi.dwFontSize.Y = 24;                  // Height
-cfi.FontFamily = FF_DONTCARE;
-cfi.FontWeight = FW_NORMAL;
-wcscpy(cfi.FaceName, L"CurlzMT"); // Choose your font
-SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
-
-
-	//std::cout << "Default console color" << std::endl;
-
-//	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY | BACKGROUND_GREEN));
-
+*/	int menu_item=0, run, x=7;
+	bool running = true;
+	gotoXY(28,4); cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+	cout<<endl;
+	gotoXY(28,5); cout << "List of Products";
+	gotoXY(28,7); cout << "->";
 	
+	while(running)  
+	{
+		   
+		gotoXY(30,7);  cout << ":: Electronic Products";
+		gotoXY(30,8);  cout << "\t:->Mobile             ";
+		gotoXY(30,9);  cout << "\t:->Laptop             ";	
+		gotoXY(30,10); cout << ":: Clothing";
+		gotoXY(30,11); cout << "\t:->Men";
+		gotoXY(30,12); cout << "\t:->Women";
+		gotoXY(30,13); cout << "\t:->Kids";
+		gotoXY(30,14); cout<<"::Home Decor";
+		gotoXY(30,15); cout<<":->Gardening Products";
+		gotoXY(30,16); cout<<":->Kitchen Essentials";
+	    gotoXY(30,17); cout<<":*:Quit";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+		
+		if(GetAsyncKeyState(VK_DOWN) && x != 17) //down button pressed
+			{
+				gotoXY(18,x); cout << "  ";
+				x++;
+				gotoXY(18,x); cout << "->";
+				menu_item++;
+				continue;
+				
+			}
+			
+		if(GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+			{
+				gotoXY(28,x); cout << "  ";
+				x--;
+				gotoXY(28,x); cout << "->";
+				menu_item--;
+				continue;
+			}
+			
+		if(GetAsyncKeyState(VK_RETURN)){ // Enter key pressed
+			
+			switch(menu_item){
+				
+				case 1: {
+					
+					gotoXY(30,20);
+					cout << "Mobile     ";
+					break;
+				}
+					
+					
+				case 2: {
+					gotoXY(30,20);
+					cout << "Laptop     ";
+					break;
+				}
+					
+				case 4: {
+					gotoXY(30,20);
+					cout << "Men Clothing    ";
+					break;
+				}
+					
+				case 5: {
+					gotoXY(30,20);
+					cout << "Women Clothing     ";
+					break;
+				}
+				case 6: {
+					gotoXY(30,20);
+					cout << "Kids Clothing     ";
+					break;
+				}
+				case 8: {
+					gotoXY(30,20);
+					cout << "Gardening Needs    ";
+					break;
+				}
+				case 9: {
+					gotoXY(30,20);
+					cout << "Kitchen Essentials     ";
+					break;
+				}
+					
+				case 10: {
+					gotoXY(30,20);
+					cout << "The program has now terminated!!";
+					running = false;
+				}
+				
+			}
+				
+		}		
+		
+	}
 	
-	
-	
+	gotoXY(30,21);	
 	
 	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN));//default background
 	return 0;
