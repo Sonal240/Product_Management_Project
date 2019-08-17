@@ -763,43 +763,43 @@ SetConsoleTextAttribute(hConsole,3);
 	cout<<endl;
 */	int menu_item=0, run, x=7;
 	bool running = true;
-	gotoXY(28,4); cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
+	gotoXY(20,24); cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
 	cout<<endl;
-	gotoXY(28,5); cout << "List of Products";
-	gotoXY(28,7); cout << "->";
+	gotoXY(20,25); cout << "List of Products";
+	gotoXY(20,27); cout << "->";
 	
 	while(running)  
 	{
 		   
-		gotoXY(30,7);  cout << ":: Electronic Products";
-		gotoXY(30,8);  cout << "\t:->Mobile             ";
-		gotoXY(30,9);  cout << "\t:->Laptop             ";	
-		gotoXY(30,10); cout << ":: Clothing";
-		gotoXY(30,11); cout << "\t:->Men";
-		gotoXY(30,12); cout << "\t:->Women";
-		gotoXY(30,13); cout << "\t:->Kids";
-		gotoXY(30,14); cout<<"::Home Decor";
-		gotoXY(30,15); cout<<":->Gardening Products";
-		gotoXY(30,16); cout<<":->Kitchen Essentials";
-	    gotoXY(30,17); cout<<":*:Quit";
+		gotoXY(22,27);  cout << ":: Electronic Products";
+		gotoXY(22,28);  cout << "\t:->Mobile             ";
+		gotoXY(22,29);  cout << "\t:->Laptop             ";	
+		gotoXY(22,30); cout << ":: Clothing";
+		gotoXY(22,31); cout << "\t:->Men";
+		gotoXY(22,32); cout << "\t:->Women";
+		gotoXY(22,33); cout << "\t:->Kids";
+		gotoXY(22,34); cout<<"::Home Decor";
+		gotoXY(22,35); cout<<":->Gardening Products";
+		gotoXY(22,36); cout<<":->Kitchen Essentials";
+	    gotoXY(22,37); cout<<":*:Quit";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 		
-		if(GetAsyncKeyState(VK_DOWN) && x != 17) //down button pressed
+		if(GetAsyncKeyState(VK_DOWN) && x != 37) //down button pressed
 			{
-				gotoXY(18,x); cout << "  ";
+				gotoXY(22,x); cout << "  ";
 				x++;
-				gotoXY(18,x); cout << "->";
+				gotoXY(22,x); cout << "->";
 				menu_item++;
 				continue;
 				
 			}
 			
-		if(GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		if(GetAsyncKeyState(VK_UP) && x !=27) //up button pressed
 			{
-				gotoXY(28,x); cout << "  ";
+				gotoXY(22,x); cout << "  ";
 				x--;
-				gotoXY(28,x); cout << "->";
+				gotoXY(22,x); cout << "->";
 				menu_item--;
 				continue;
 			}
@@ -810,47 +810,47 @@ SetConsoleTextAttribute(hConsole,3);
 				
 				case 1: {
 					
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Mobile     ";
 					break;
 				}
 					
 					
 				case 2: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Laptop     ";
 					break;
 				}
 					
 				case 4: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Men Clothing    ";
 					break;
 				}
 					
 				case 5: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Women Clothing     ";
 					break;
 				}
 				case 6: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Kids Clothing     ";
 					break;
 				}
 				case 8: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Gardening Needs    ";
 					break;
 				}
 				case 9: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "Kitchen Essentials     ";
 					break;
 				}
 					
 				case 10: {
-					gotoXY(30,20);
+					gotoXY(22,39);
 					cout << "The program has now terminated!!";
 					running = false;
 				}
@@ -861,7 +861,7 @@ SetConsoleTextAttribute(hConsole,3);
 		
 	}
 	
-	gotoXY(30,21);	
+	gotoXY(22,40);	
 	
 	SetConsoleTextAttribute(hConsole, (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN));//default background
 	return 0;
