@@ -12,9 +12,9 @@ void gotoXY(int x, int y)
 	SetConsoleCursorPosition(console,CursorPosition); 
 }
 
+ fstream fp;
 
 /********************** Class User**************************************
--> Contains details about User/ Buyer of a particular product
 ->Constructor initialises data members of the class 
 ->Getter function which when called takes input from the user
 ->Display function which when called shows the input taken from the user
@@ -22,7 +22,7 @@ void gotoXY(int x, int y)
 class User
 {
 	int user_id;
-	string name;
+	string password,loginStatus,registerDate,name;
 	long phone_number;
 	public:
 		User() 
@@ -46,8 +46,8 @@ class User
 			cout<<"User Name:"<<name<<endl;
 			cout<<"Phone Number:"<<phone_number<<endl;
 		}
+		bool verifyLogin();
 };
-
 
 /*******************************Class Product************************************
 ->Contains basic blueprint about Products and is further inherited by other classes
@@ -121,13 +121,191 @@ class Product
 			if(eligible_for_cod==0)
 			cout<<"Product demanded is not eligible for cod"<<endl;
 			else cout<<"Product is eligible for cod"<<endl;
-		}
-virtual	float return_discount_price(int discount_percent)
+		}	
+		float return_discount_price(int discount_percent)
 		{
 			return price-(price*(discount_percent/100));
 		}
+
 };
 
+/*******************************Class ShoppingCart********************************
+->Contains basic blueprint of a shopping cart
+->Constructor initialises data members of the class 
+->Functions returning the values of data members
+*********************************************************************************
+class ShoppingCart{
+	int CartId, ProductId,quantity,dateAdded;
+	
+	public:
+		void showCart(){
+			cout<<"Product Id:"<<ProductId<<endl;
+			cout<<"Quantity Ordered:"<<quantity<<endl;
+			cout<<"Date Added to Cart:"<<dateAdded<<endl;
+		}
+		void addCartItem();
+		void updateQuantity();
+		void viewCartDetails();
+		void checkOut();
+};*/
+
+/*******************************Class ShippingInfo********************************
+->Contains the data members that would store shipping detail of a product
+->Constructor initialises data members of the class 
+->Functions returning the values of data members and one method to update shipping 
+  information
+*********************************************************************************/
+class ShippingInfo{
+	int shippingId;
+	string shippingType;
+	int shippingCost;
+	int shippingRegionCode;
+	
+	public:
+		void getShippingInfo();
+};
+
+/*******************************Class Order************************************
+->Contains objects of shippinInfo implements composition
+->Constructor initialises data members of the class 
+->Functions returning the values of data members
+*********************************************************************************/
+template<class T>
+class Order{
+	ShippingInfo si;
+	public:
+		void place_order(string,T );
+		
+};
+template<class T> 
+void menu( string filename,T pr){
+     //clrscr();
+     fp.open("ShopifyProducts.dat",ios::in);
+    // fp.open(filename,ios::in|ios::binary);
+    if(!fp){
+       cout<<"ERROR!!! FILE COULD NOT BE OPEN\n\n\n Go To Admin Menu to create File";
+       cout<<"\n\n\n Program is closing ....";
+       getch();
+       exit(0);
+    }
+
+      cout<<"\n\n\t\tProduct MENU\n\n";
+	  cout<<"====================================================\n";
+	  cout<<"P.NO.\t\tNAME\t\tPRICE\n";
+	  cout<<"====================================================\n";
+
+      while(fp.read((char*)&pr,sizeof(pr)))
+	 {
+	   cout<<pr.return_product_id()<<"\t\t"<<pr.return_bname()<<"\t\t"<<pr.return_price()<<endl;
+	 }
+     fp.close();
+}
+template<class T> 
+void Order::place_order( string filename ,T pr){
+	int  order_arr[50],quan[50],c=0;
+    float amt,damt,total=0;
+    char ch='Y';
+    menu(filename, pr);
+    cout<<"\n============================";
+    cout<<"\n    PLACE YOUR ORDER";
+    cout<<"\n============================\n";
+    do{
+	 cout<<"\n\nEnter The Product No. Of The Product : ";
+	 cin>>order_arr[c];
+	 cout<<"\nQuantity in number : ";
+	 cin>>quan[c];
+	 c++;
+	 cout<<"\nDo You Want To Order Another Product ? (y/n)";
+	 cin>>ch;
+    }while(ch=='y' ||ch=='Y');
+    cout<<"\n\nThank You For Placing The Order";getch();//clrscr();
+    si.getShippingInfo();
+      cout<<"\n\n********************************INVOICE************************\n";
+      cout<<"\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after discount\n";
+      for(int x=0;x<=c;x++)
+	{
+		 fp.open(filename,ios::in|ios::binary);
+		 fp.read((char*)&pr,sizeof(product));
+		  while(!fp.eof())
+			{
+			if(pr.retpno()==order_arr[x])
+				{
+				 amt=pr.return_price()*quan[x];
+				 damt=amt-(amt*pr.return_discount_price()/100);
+				 cout<<"\n"<<order_arr[x]<<"\t"<<pr.return_bname()<<"\t"<<quan[x]<<"\t\t"<<pr.return_price()<<"\t"<<amt<<"\t\t"<<damt;
+				 total+=damt;
+				}
+			fp.read((char*)&pr,sizeof(pr));
+			}
+
+		 fp.close();
+	 }
+       cout<<"\n\n\t\t\t\t\tTOTAL = "<<total;
+    getch();
+}
+
+
+/*******************************Class Customer************************************
+->Publically inherits class User
+->Constructor initialises data members of the class 
+->Functions returning the values of data members
+*********************************************************************************/
+class Customer: public User{
+	string address, email, creditCardInfo,shippingInfo;
+	float accountBalance;
+	Order o;
+	public:
+	void cplace_order( string filename, T pr)
+	{
+		o.place_order(filename,pr);
+	}
+		
+};
+
+/*******************************Class Admin************************************
+->Publically inherits  class User
+->Constructor initialises data members of the class 
+->Functions returning the values of data members
+*********************************************************************************/
+class Admin: public User{
+	string email ;
+	public:
+		void admin_menu();	
+};
+void Admin::admin_menu(){
+	//clrscr();
+  char ch2;
+  cout<<"\n\n\n\tADMIN MENU";
+  cout<<"\n\n\t1.CREATE PRODUCT";
+  cout<<"\n\n\t2.DISPLAY ALL PRODUCTS";
+  cout<<"\n\n\t3.QUERY ";
+  cout<<"\n\n\t4.MODIFY PRODUCT";
+  cout<<"\n\n\t5.DELETE PRODUCT";
+  cout<<"\n\n\t6.VIEW PRODUCT MENU";
+  cout<<"\n\n\t7.BACK TO MAIN MENU";
+  cout<<"\n\n\tPlease Enter Your Choice (1-7) ";
+  ch2=getche();
+  switch(ch2)
+  {
+    case '1': //clrscr();
+	      write_product();
+	      break;
+    case '2': display_all();break;
+    case '3':
+	       int num;
+	       //clrscr();
+	       cout<<"\n\n\tPlease Enter The Product No. ";
+	       cin>>num;
+	       display_sp(num);
+	       break;
+      case '4': modify_product();break;
+      case '5': delete_product();break;
+      case '6': menu();
+		getch();
+      case '7': break;
+      default:cout<<"\a";admin_menu();
+   }
+}
 
 /***********************Class Electronic_Products***********************
 ->This class publically inherits the Product class 
@@ -706,9 +884,112 @@ class Gardening_Products: public Home_DecorProducts
 		
 };
 
+	template<class T>
+	void write_product( T pr)
+	{
+		fp.open("ShopifyProducts.dat",ios::out|ios::app);
+		pr.get_product_details();
+		fp.write((char*)&pr,sizeof(Product));
+		fp.close();
+		cout<<"\n\nThe Product Has Been Created ";
+		getch();
+    }
+    
+    template<class T>
+	void display_all( T pr)
+	{
+		cout<<"\n\n\n\t\tDISPLAY ALL RECORD !!!\n\n";
+	    fp.open("ShopifyProducts.dat",ios::in);
+	    while(fp.read((char*)&pr,sizeof(Product)))
+		{
+			pr.show_product_details();
+			cout<<"\n\n====================================\n";
+			getch();
+		}
+	    fp.close();
+	    getch();
+    }
+    
+    template<class> T
+    void display_sp(T pr,int n)
+	{
+    	int flag=0;
+    	fp.open("ShopifyProducts.dat",ios::in);
+	    while(fp.read((char*)&pr,sizeof(product)))
+		{
+		 if(pr.retpno()==n)
+			{
+			// clrscr();
+			 pr.show_product_details();
+			 flag=1;
+			}
+		}
+    	fp.close();
+		if(flag==0)
+ 		cout<<"\n\nrecord not exist";
+   		getch();
+	}
+	
+	template<class T > 
+	void modify_product(T pr)
+	{
+    	int no,found=0;
+  		 // clrscr();
+  	  	cout<<"\n\n\tTo Modify ";
+    	cout<<"\n\n\tPlease Enter The Product No. of The Product";
+    	cin>>no;
+   		 fp.open("Shop.dat",ios::in|ios::out);
+	    while(fp.read((char*)&pr,sizeof(pr)) && found==0)
+		   {
+		    if(pr.retpno()==no)
+			   {
+			    pr.show_product_details();
+			    cout<<"\nPlease Enter The New Details of Product"<<endl;
+			    pr.get_product_details();
+			    int pos=-1*sizeof(pr);
+			    fp.seekp(pos,ios::cur);
+			    fp.write((char*)&pr,sizeof(product));
+			    cout<<"\n\n\t Record Updated";
+			    found=1;
+			   }
+		    }
+   		 fp.close();
+   		 if(found==0)
+    		cout<<"\n\n Record Not Found ";
+    	getch();
+	}
+	
+	template<class T> 
+	void delete_product( T pr)
+   {
+	    int no;
+	   // clrscr();
+	    cout<<"\n\n\n\tDelete Record";
+	    cout<<"\n\nPlease Enter The product no. of The Product You Want To Delete";
+	    cin>>no;
+	    fp.open("ShopifyProducts.dat",ios::in|ios::out);
+	    fstream fp2;
+	    fp2.open("Temp.dat",ios::out);
+	    fp.seekg(0,ios::beg);
+	    while(fp.read((char*)&pr,sizeof(pr)))
+		{
+		 if(pr.retpno()!=no)
+			{
+			 fp2.write((char*)&pr,sizeof(pr));
+			}
+		}
+	    fp2.close();
+	    fp.close();
+	    remove("ShopifyProducts.dat");
+	    rename("Temp.dat","ShopifyProducts.dat");
+	    cout<<"\n\n\tRecord Deleted ..";
+	    getch();
+    }
 
-int main(void)
-{	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+void intro()
+{
+// clrscr();
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFOEX info;
 	GetConsoleScreenBufferInfoEx(hConsole,&info);
 	CONSOLE_FONT_INFOEX cfi;
@@ -722,14 +1003,14 @@ int main(void)
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 //	info.ColorTable[3]=RGB(135,206,235);
 //	info.ColorTable[2]=RGB(25,0,120);
-	stack<Gardening_Products> gp;
-	stack<Kitchen_Furnishings> kf;
-	stack<Male_Clothing>m;
-	stack<Female_CLothing> f;
-	stack<Kids_Clothing> k;
-	stack<Laptop> l;
-	stack<Mobile> mo;
-	queue<User> u;
+//	stack<Gardening_Products> gp;
+//	stack<Kitchen_Furnishings> kf;
+//	stack<Male_Clothing>m;
+//	stack<Female_CLothing> f;
+//	stack<Kids_Clothing> k;
+//	stack<Laptop> l;
+//	stack<Mobile> mo;
+//	queue<User> u;
 SetConsoleTextAttribute(hConsole,9);
 	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
@@ -744,24 +1025,13 @@ SetConsoleTextAttribute(hConsole,9);
 	cout<<"\t****************************************************************************************************************"<<endl;
 	cout<<endl;
 SetConsoleTextAttribute(hConsole,3);	
-/*	cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
-	cout<<endl;
-	cout<<"\t\t\t\tList of Products:"<<endl;
-	cout<<endl;
-	cout<<"\t\t\t\tElectronics:"<<endl;
-	cout<<"\t\t\t\t->Mobile"<<endl;
-	cout<<"\t\t\t\t->Laptop"<<endl;
-	cout<<endl;
-	cout<<"\t\t\t\tClothing:"<<endl;
-	cout<<"\t\t\t\t->Men"<<endl;
-	cout<<"\t\t\t\t->Women"<<endl;
-	cout<<"\t\t\t\t->Kids"<<endl;
-	cout<<endl;
-	cout<<"\t\t\t\tHome Decor:"<<endl; 
-	cout<<"\t\t\t\t->Gardening items"<<endl;
-	cout<<"\t\t\t\t->Kitchen Essentials"<<endl;
-	cout<<endl;
-*/	int menu_item=0, run, x=7;
+ cout<<"\n\nMADE BY : DIVIJ AGARWAAL (9918103012)"<<" "<<"RUDRAKSH BHARADWAJ (9918103020)"<<" "<<"REVAAN MISHRA (9918103016)"<<"SIMRAN SHILKY (9918103027)"<<endl;
+ getch();
+
+}
+
+void customer_choice(){
+	int menu_item=0, run, x=7;
 	bool running = true;
 	gotoXY(20,24); cout<<"\t\t\tWelcome to Shopify!!!"<<" "<<"What do you wish to buy Today??"<<endl;
 	cout<<endl;
@@ -780,8 +1050,8 @@ SetConsoleTextAttribute(hConsole,3);
 		gotoXY(22,33); cout << "\t:->Kids";
 		gotoXY(22,34); cout<<"::Home Decor";
 		gotoXY(22,35); cout<<":->Gardening Products";
-		gotoXY(22,36); cout<<":->Kitchen Essentials";
-	    gotoXY(22,37); cout<<":*:Quit";
+		gotoXY(22,36); cout<<":->Kitchen Essentix  als";
+	    gotoXY(22,37); cout<<"::Quit";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 		
@@ -803,7 +1073,7 @@ SetConsoleTextAttribute(hConsole,3);
 				menu_item--;
 				continue;
 			}
-			
+			Customer C;
 		if(GetAsyncKeyState(VK_RETURN)){ // Enter key pressed
 			
 			switch(menu_item){
@@ -812,6 +1082,8 @@ SetConsoleTextAttribute(hConsole,3);
 					
 					gotoXY(22,39);
 					cout << "Mobile     ";
+					Mobile m;
+					C.cplace_order("ShopifyMobile",m);
 					break;
 				}
 					
@@ -819,33 +1091,45 @@ SetConsoleTextAttribute(hConsole,3);
 				case 2: {
 					gotoXY(22,39);
 					cout << "Laptop     ";
+					Laptop l;
+					C.cplace_order("ShopifyLaptop", l);
 					break;
 				}
 					
 				case 4: {
 					gotoXY(22,39);
 					cout << "Men Clothing    ";
+					Male_Clothing men;
+					C.cplace_order("ShopifyMen",men);
 					break;
 				}
 					
 				case 5: {
-					gotoXY(22,39);
+					gotoXY(22,39);  
 					cout << "Women Clothing     ";
+					Female_Clothing fem;
+					C.cplace_order("ShopifyWomen",fem);
 					break;
 				}
 				case 6: {
 					gotoXY(22,39);
 					cout << "Kids Clothing     ";
+					Kids_Clothing k;
+					C.cplace_order("ShopifyKids",k);
 					break;
 				}
 				case 8: {
 					gotoXY(22,39);
 					cout << "Gardening Needs    ";
+					Gardening_Products g;
+					C.cplace_order("ShopifyGarden",g);
 					break;
 				}
 				case 9: {
 					gotoXY(22,39);
 					cout << "Kitchen Essentials     ";
+					Kitchen_Furnishings kit;
+					C.cplace_order("ShopifyKitchen",kit);
 					break;
 				}
 					
@@ -860,6 +1144,37 @@ SetConsoleTextAttribute(hConsole,3);
 		}		
 		
 	}
+}
+
+int main(void)
+{	
+	intro();
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	GetConsoleScreenBufferInfoEx(hConsole,&info);
+	char ch='0';
+	 do
+    {
+	  //clrscr();
+	  cout<<"\n\n\n\tMAIN MENU";
+	  cout<<"\n\n\t01. CUSTOMER";
+	  cout<<"\n\n\t02. ADMINISTRATOR";
+	  cout<<"\n\n\t03. EXIT";
+	  cout<<"\n\n\tPlease Select Your Option (1-3) ";
+	  ch=getche();
+	  switch(ch)
+	  {
+		 case '1': //clsrcr();
+			  customer_choice();
+			   getch();
+			   break;
+		  case '2': Admin a;
+		  			a.admin_menu();
+			    break;
+		  case '3':exit(0);
+		  default :cout<<"\a";
+	}
+    }while(ch!='3');
 	
 	gotoXY(22,40);	
 	
